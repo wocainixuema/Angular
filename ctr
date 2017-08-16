@@ -1,0 +1,28 @@
+<script>
+var mk = angular.module("uers",[]);
+mk.controller("man",["$scope","$http",function($scope,$http){
+	$http.get("zhoukao.json").then(function(res){//获取数据
+		$scope.arr = res.data.uers
+	})	
+		$scope.del =function(xb){//删除单行
+			angular.forEach($scope.arr,function(val,key){
+				if(val.name==xb){
+					$scope.arr.splice(key,1);
+				}
+			})
+		}
+		$scope.delAll = function(){//清空
+			$scope.arr = []	
+		}
+		$scope.add =function(){//添加
+			if($scope.xName  && $scope.xAge && $scope.xTel ){
+				$scope.arr.push({"name":$scope.xName,"age":parseInt($scope.xAge),"tel":$scope.xTel})
+				$scope.xName = "";
+				$scope.xAge = "";
+				$scope.xTel = "";
+			}else{
+				alert("不能为空")
+			}
+		}
+}])
+</script>
